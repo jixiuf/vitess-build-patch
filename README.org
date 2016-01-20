@@ -5,7 +5,9 @@ http://vitess.io/getting-started/local-instance.html
 
 * files 目录
   此目录下是编译 vitess 及其依赖组件所需要的墙外文件
-  | [[https://github.com/jixiuf/vitess-build-patch/raw/master/files/gmock-1.7.0.zip][gmock-1.7.0.zip]] | protobuf3 需要 |
+  | 墙外链接        | 本仓库files下链接 |                |
+  |-----------------+-------------------+----------------|
+  | [[https://googlemock.googlecode.com/files/gmock-1.7.0.zip][gmock-1.7.0.zip]] | [[https://github.com/jixiuf/vitess-build-patch/raw/master/files/gmock-1.7.0.zip][gmock-1.7.0.zip]]   | protobuf3 需要 |
 
 * 中国特色的 vitess 编译方案
 预期目标是在centos7 上制作一个docker 镜像
