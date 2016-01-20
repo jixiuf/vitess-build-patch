@@ -1,0 +1,14 @@
+* 本库的地址
+  https://github.com/jixiuf/vitess-build-patch
+* 官方编译 vitess 的手册
+http://vitess.io/getting-started/local-instance.html
+
+* files 目录
+  此目录下是编译 vitess 及其依赖组件所需要的墙外文件
+  | gmock-1.7.0.zip | protobuf3 需要 |
+
+* 中国特色的 vitess 编译方案
+预期目标是在centos7 上制作一个docker 镜像
+此镜像中 包含 编译完成的vitess
+获得此镜像后可以直接布署使用
+
