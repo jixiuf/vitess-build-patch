@@ -14,3 +14,22 @@ http://vitess.io/getting-started/local-instance.html
 此镜像中 包含 编译完成的vitess
 获得此镜像后可以直接布署使用
 
+* 操作步骤
+
+** centos7+docker
+   首先有一台centos7,并在centos7 上安装docker
+
+** 下载本仓库 执行make
+   网速的原因 可能一次不成功，可以执行多次make
+
+** 在 vitess 代码会放到 ~/go/src/github.com/youtube/vitess/
+   在此目录下执行 make build 不报错， 说明 vitess 开发环境搭建成功
+
+** vitess 下自带了一些Dockerfile
+   用这些脚本可生成相应的docker 镜像
+   1. make docker_lite
+      会生成vitess 的二进制版本的docker 镜像 ，拿到这个镜像就可以去部署了
+   2. make etcd
+       生成etcd 的二进制版 docker 镜像
+
+

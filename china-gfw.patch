@@ -1,0 +1,67 @@
+diff --git a/bootstrap.sh b/bootstrap.sh
+index 789b631..53fd63c 100755
+--- a/bootstrap.sh
++++ b/bootstrap.sh
+@@ -63,8 +63,11 @@ if [ $SKIP_ROOT_INSTALLS == "True" ]; then
+ elif [ -f $protobuf_dist/.build_finished ]; then
+   echo "skipping protobuf build. remove $protobuf_dist to force rebuild."
+ else
+-  rm -rf $protobuf_dist
++  # rm -rf $protobuf_dist
++  rm -rf $protobuf_dist/lib
++  rm -rf $protobuf_dist/lib64
+   mkdir -p $protobuf_dist/lib/python2.7/site-packages
++  mkdir -p $protobuf_dist/lib64/python2.7/site-packages
+   # The directory may not have existed yet, so it may not have been
+   # picked up by dev.env yet, but the install needs it to exist first,
+   # and be in PYTHONPATH.
+@@ -80,7 +83,7 @@ if [ $SKIP_ROOT_INSTALLS == "True" ]; then
+ elif [ -f $grpc_dist/.build_finished ]; then
+   echo "skipping gRPC build. remove $grpc_dist to force rebuild."
+ else
+-  rm -rf $grpc_dist
++  # rm -rf $grpc_dist
+   mkdir -p $grpc_dist
+   ./travis/install_grpc.sh $grpc_dist || fail "gRPC build failed"
+   touch $grpc_dist/.build_finished
+@@ -96,13 +99,6 @@ repos="github.com/golang/glog \
+        github.com/golang/protobuf/proto \
+        github.com/golang/protobuf/protoc-gen-go \
+        github.com/tools/godep \
+-       golang.org/x/net/context \
+-       golang.org/x/oauth2/google \
+-       golang.org/x/tools/cmd/goimports \
+-       google.golang.org/grpc \
+-       google.golang.org/cloud \
+-       google.golang.org/cloud/storage \
+-       golang.org/x/crypto/ssh/terminal \
+ "
+ 
+ # Packages for uploading code coverage to coveralls.io (used by Travis CI).
+@@ -111,7 +107,8 @@ repos+=" github.com/modocache/gover github.com/mattn/goveralls"
+ # if Go is installed somewhere that requires root access.
+ source tools/shell_functions.inc
+ if goversion_min 1.4; then
+-  repos+=" golang.org/x/tools/cmd/cover"
++  # repos+=" golang.org/x/tools/cmd/cover"
++  repos+=" "
+ else
+   repos+=" code.google.com/p/go.tools/cmd/cover"
+ fi
+diff --git a/travis/install_protobuf.sh b/travis/install_protobuf.sh
+index bc114de..f61037c 100755
+--- a/travis/install_protobuf.sh
++++ b/travis/install_protobuf.sh
+@@ -19,10 +19,11 @@ if [ `uname -s` == "Darwin" ]; then
+   protobuf_beta_version=2
+ fi
+ 
+-wget https://github.com/google/protobuf/archive/v3.0.0-beta-$protobuf_beta_version.tar.gz
++wget -c https://github.com/google/protobuf/archive/v3.0.0-beta-$protobuf_beta_version.tar.gz
+ tar -xvzf v3.0.0-beta-$protobuf_beta_version.tar.gz
+ cd protobuf-3.0.0-beta-$protobuf_beta_version
+ 
++sed -i"" 's|https://googlemock.googlecode.com/files/gmock-1.7.0.zip|-L https://github.com/jixiuf/vitess-build-patch/raw/master/files/gmock-1.7.0.zip|g'  $protobuf_dist/protobuf-3.0.0-beta-$protobuf_beta_version/autogen.sh
+ ./autogen.sh
+ if [ "$protobuf_dist" != "" ]; then
+   ./configure --prefix=$protobuf_dist
