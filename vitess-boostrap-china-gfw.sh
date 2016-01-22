@@ -24,7 +24,7 @@ sudo yum install -y  mysql-server mysql mysql-devel
 sudo yum install -y etcd
 
 
-sudo yum install -y bzr git make automake libtool pkgconfig bison curl unzip patch
+sudo yum install -y git make automake libtool pkgconfig bison curl unzip patch
 sudo yum install -y  memcached
 
 if [ -z $GOPATH ]; then
