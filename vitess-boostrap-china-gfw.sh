@@ -72,7 +72,7 @@ source ~/.bashrc
 
 if [ -f ~/.zshrc ] && [ `grep -c set_vitess_env ~/.zshrc ` -eq 0 ]
 then
-    cat >>~/.bashrc <<EOF
+    cat >>~/.zshrc <<EOF
 
 # set_vitess_env
 export VT_TEST_FLAGS='--topo-server-flavor=etcd'
