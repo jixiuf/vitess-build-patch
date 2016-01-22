@@ -44,8 +44,8 @@ sudo yum install -y  openssl openssl-devel gcc-c++
 sudo yum install -y python-devel python-virtualenv MySQL-python
 if [ ! -d ~/python ]; then
     virtualenv ~/python
-    echo "source ~/python/bin/activate" >>~/.bashrc
-    # sed 's|source ~/python/bin/activate||g' ~/.bashrc
+    echo ". ~/python/bin/activate" >>~/.bashrc
+    # sed 's|. ~/python/bin/activate||g' ~/.bashrc
 fi
 ~/python/bin/pip install MySQL-python
 
@@ -64,11 +64,13 @@ export MYSQL_FLAVOR=MySQL56
 export GODEBUG=netdns=go
 export GOROOT=/usr/lib/golang/
 export GOPATH=~/go
-source $GOPATH/src/github.com/youtube/vitess/dev.env
+if [ -d $GOPATH/src/github.com/youtube/vitess/ ]; then
+    cd $GOPATH/src/github.com/youtube/vitess/;. ./dev.env;cd -
+fi
 EOF
 fi
 
-source ~/.bashrc
+. ~/.bashrc
 
 if [ -f ~/.zshrc ] && [ `grep -c set_vitess_env ~/.zshrc ` -eq 0 ]
 then
@@ -80,7 +82,9 @@ export MYSQL_FLAVOR=MySQL56
 export GODEBUG=netdns=go
 export GOROOT=/usr/lib/golang/
 export GOPATH=~/go
-source $GOPATH/src/github.com/youtube/vitess/dev.env
+if [ -d $GOPATH/src/github.com/youtube/vitess/ ]; then
+    cd $GOPATH/src/github.com/youtube/vitess/;. ./dev.env;cd -
+fi
 EOF
 fi
 
