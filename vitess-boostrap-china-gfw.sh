@@ -112,6 +112,13 @@ if [ ! -d $GOPATH/src/golang.org/x/oauth2 ]; then
 else
     cd $GOPATH/src/golang.org/x/oauth2;git pull;go install;cd -
 fi
+if [ ! -d $GOPATH/src/google.golang.org/grpc ]; then
+    mkdir -p $GOPATH/src/google.golang.org
+    cd $GOPATH/src/google.golang.org/;git clone  https://github.com/grpc/grpc-go.git grpc;cd -
+else
+    cd $GOPATH/src/google.golang.org/grpc/;git pull;go install;cd -
+fi
+
 if [ ! -d $GOPATH/src/google.golang.org/cloud ]; then
     mkdir -p $GOPATH/src/google.golang.org
     cd $GOPATH/src/google.golang.org/;git clone  https://github.com/GoogleCloudPlatform/gcloud-golang.git cloud;cd -
@@ -128,12 +135,6 @@ fi
 
 
 
-if [ ! -d $GOPATH/src/google.golang.org/grpc ]; then
-    mkdir -p $GOPATH/src/google.golang.org
-    cd $GOPATH/src/google.golang.org/;git clone  https://github.com/grpc/grpc.git;cd -
-else
-    cd $GOPATH/src/google.golang.org/grpc/;git pull;go install;cd -
-fi
 
 
 cd $GOPATH/src/github.com/youtube/vitess;./bootstrap.sh;cd -
