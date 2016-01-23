@@ -49,7 +49,7 @@ index 789b631..53fd63c 100755
    repos+=" code.google.com/p/go.tools/cmd/cover"
  fi
 diff --git a/docker/bootstrap/Dockerfile.common b/docker/bootstrap/Dockerfile.common
-index 530988f..38ac48a 100644
+index 530988f..413d7b7 100644
 --- a/docker/bootstrap/Dockerfile.common
 +++ b/docker/bootstrap/Dockerfile.common
 @@ -32,6 +32,7 @@ RUN mkdir -p /vt/bin && \
@@ -60,6 +60,24 @@ index 530988f..38ac48a 100644
      pecl install xdebug && \
      echo "zend_extension=$(pecl config-get ext_dir default)/xdebug.so" > /etc/php5/cli/conf.d/20-xdebug.ini
  
+@@ -78,11 +79,12 @@ COPY composer.json composer.lock /vt/src/github.com/youtube/vitess/
+ RUN $VTTOP/travis/install_protobuf.sh
+ RUN $VTTOP/travis/install_grpc.sh
+ 
+-# Install gRPC PHP dependencies
+-RUN pecl install grpc-beta && \
+-    echo 'extension=grpc.so' > /etc/php5/cli/conf.d/20-grpc.ini && \
+-    cd /vt/src/github.com/youtube/vitess && \
+-    composer install
++# I comments this (I don't use php and this stop the building process)
++## Install gRPC PHP dependencies
++# RUN pecl install grpc-beta && \
++#     echo 'extension=grpc.so' > /etc/php5/cli/conf.d/20-grpc.ini && \
++#     cd /vt/src/github.com/youtube/vitess && \
++#     composer install
+ 
+ # Create vitess user
+ RUN groupadd -r vitess && useradd -r -g vitess vitess && \
 diff --git a/docker/bootstrap/build.sh b/docker/bootstrap/build.sh
 index 7dd0221..e2f460d 100755
 --- a/docker/bootstrap/build.sh
