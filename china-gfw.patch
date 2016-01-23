@@ -71,20 +71,29 @@ index 7dd0221..e2f460d 100755
 -docker build --no-cache -f docker/bootstrap/Dockerfile.$flavor -t vitess/bootstrap:$flavor .
 +docker build  -f docker/bootstrap/Dockerfile.$flavor -t vitess/bootstrap:$flavor .
 diff --git a/travis/install_protobuf.sh b/travis/install_protobuf.sh
-index bc114de..3d3a085 100755
+index bc114de..ffc48a5 100755
 --- a/travis/install_protobuf.sh
 +++ b/travis/install_protobuf.sh
-@@ -10,6 +10,9 @@ protobuf_dist="$1"
+@@ -10,6 +10,18 @@ protobuf_dist="$1"
  if [ "$protobuf_dist" != "" ]; then
    cd $protobuf_dist
  fi
 +if [ "$protobuf_dist" == "" ]; then
-+   protobuf_dist="`pwd`"
++    protobuf_dist="."
 +fi
++
++rm -rf $protobuf_dist/lib
++rm -rf $protobuf_dist/lib64
++mkdir -p $protobuf_dist/lib/python2.7/site-packages
++mkdir -p $protobuf_dist/lib64/python2.7/site-packages
++# The directory may not have existed yet, so it may not have been
++# picked up by dev.env yet, but the install needs it to exist first,
++# and be in PYTHONPATH.
++export PYTHONPATH=$protobuf_dist/lib/python2.7/site-packages:$PYTHONPATH
  
  # this is the default working beta version on Linux, beta-2 doesn't work here
  protobuf_beta_version=1
-@@ -19,10 +22,11 @@ if [ `uname -s` == "Darwin" ]; then
+@@ -19,10 +31,11 @@ if [ `uname -s` == "Darwin" ]; then
    protobuf_beta_version=2
  fi
  
