@@ -89,7 +89,7 @@ index 7dd0221..e2f460d 100755
 -docker build --no-cache -f docker/bootstrap/Dockerfile.$flavor -t vitess/bootstrap:$flavor .
 +docker build  -f docker/bootstrap/Dockerfile.$flavor -t vitess/bootstrap:$flavor .
 diff --git a/travis/install_protobuf.sh b/travis/install_protobuf.sh
-index bc114de..ffc48a5 100755
+index bc114de..7443766 100755
 --- a/travis/install_protobuf.sh
 +++ b/travis/install_protobuf.sh
 @@ -10,6 +10,18 @@ protobuf_dist="$1"
@@ -97,7 +97,7 @@ index bc114de..ffc48a5 100755
    cd $protobuf_dist
  fi
 +if [ "$protobuf_dist" == "" ]; then
-+    protobuf_dist="."
++    protobuf_dist="`pwd`"
 +fi
 +
 +rm -rf $protobuf_dist/lib
