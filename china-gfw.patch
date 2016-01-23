@@ -48,6 +48,18 @@ index 789b631..53fd63c 100755
  else
    repos+=" code.google.com/p/go.tools/cmd/cover"
  fi
+diff --git a/docker/bootstrap/Dockerfile.common b/docker/bootstrap/Dockerfile.common
+index 530988f..38ac48a 100644
+--- a/docker/bootstrap/Dockerfile.common
++++ b/docker/bootstrap/Dockerfile.common
+@@ -32,6 +32,7 @@ RUN mkdir -p /vt/bin && \
+     curl -sL https://phar.phpunit.de/phpunit-4.8.9.phar > /vt/bin/phpunit && \
+     chmod +x /vt/bin/phpunit && \
+     curl -sS https://getcomposer.org/installer | php -- --install-dir=/vt/bin --filename=composer && \
++    pecl channel-update pecl.php.net &&\
+     pecl install xdebug && \
+     echo "zend_extension=$(pecl config-get ext_dir default)/xdebug.so" > /etc/php5/cli/conf.d/20-xdebug.ini
+ 
 diff --git a/travis/install_protobuf.sh b/travis/install_protobuf.sh
 index bc114de..f61037c 100755
 --- a/travis/install_protobuf.sh
