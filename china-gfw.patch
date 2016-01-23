@@ -79,7 +79,7 @@ index bc114de..3d3a085 100755
    cd $protobuf_dist
  fi
 +if [ "$protobuf_dist" == "" ]; then
-+    protobuf_dist="."
++   protobuf_dist="`pwd`"
 +fi
  
  # this is the default working beta version on Linux, beta-2 doesn't work here
