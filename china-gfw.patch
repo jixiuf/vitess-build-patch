@@ -60,6 +60,16 @@ index 530988f..38ac48a 100644
      pecl install xdebug && \
      echo "zend_extension=$(pecl config-get ext_dir default)/xdebug.so" > /etc/php5/cli/conf.d/20-xdebug.ini
  
+diff --git a/docker/bootstrap/build.sh b/docker/bootstrap/build.sh
+index 7dd0221..e2f460d 100755
+--- a/docker/bootstrap/build.sh
++++ b/docker/bootstrap/build.sh
+@@ -15,4 +15,4 @@ fi
+ # To avoid AUFS permission issues, files must allow access by "other"
+ chmod -R o=g *
+ 
+-docker build --no-cache -f docker/bootstrap/Dockerfile.$flavor -t vitess/bootstrap:$flavor .
++docker build  -f docker/bootstrap/Dockerfile.$flavor -t vitess/bootstrap:$flavor .
 diff --git a/travis/install_protobuf.sh b/travis/install_protobuf.sh
 index bc114de..3d3a085 100755
 --- a/travis/install_protobuf.sh
