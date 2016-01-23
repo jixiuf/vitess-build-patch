@@ -61,10 +61,20 @@ index 530988f..38ac48a 100644
      echo "zend_extension=$(pecl config-get ext_dir default)/xdebug.so" > /etc/php5/cli/conf.d/20-xdebug.ini
  
 diff --git a/travis/install_protobuf.sh b/travis/install_protobuf.sh
-index bc114de..f61037c 100755
+index bc114de..3d3a085 100755
 --- a/travis/install_protobuf.sh
 +++ b/travis/install_protobuf.sh
-@@ -19,10 +19,11 @@ if [ `uname -s` == "Darwin" ]; then
+@@ -10,6 +10,9 @@ protobuf_dist="$1"
+ if [ "$protobuf_dist" != "" ]; then
+   cd $protobuf_dist
+ fi
++if [ "$protobuf_dist" == "" ]; then
++    protobuf_dist="."
++fi
+ 
+ # this is the default working beta version on Linux, beta-2 doesn't work here
+ protobuf_beta_version=1
+@@ -19,10 +22,11 @@ if [ `uname -s` == "Darwin" ]; then
    protobuf_beta_version=2
  fi
  
