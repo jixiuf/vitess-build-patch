@@ -89,54 +89,6 @@ EOF
 fi
 
 
-mkdir -p $GOPATH/src/golang.org/x
-if [ ! -d $GOPATH/src/golang.org/x/net ]; then
-    cd $GOPATH/src/golang.org/x;git clone  https://github.com/golang/net.git ;cd -
-else
-    cd $GOPATH/src/golang.org/x/net;git pull;cd -
-fi
-if [ ! -d $GOPATH/src/golang.org/x/crypto ]; then
-    cd $GOPATH/src/golang.org/x;git clone   https://github.com/golang/crypto.git;cd -
-else
-    cd $GOPATH/src/golang.org/x/crypto;git pull;cd -
-fi
-if [ ! -d $GOPATH/src/golang.org/x/tools ]; then
-    cd $GOPATH/src/golang.org/x;git clone  https://github.com/golang/tools.git;cd -
-else
-    cd $GOPATH/src/golang.org/x/tools;git pull;cd -
-fi
-go install golang.org/x/tools/cmd/goimports
-
-if [ ! -d $GOPATH/src/golang.org/x/oauth2 ]; then
-    cd $GOPATH/src/golang.org/x;git clone  https://github.com/golang/oauth2.git;go install;cd -
-else
-    cd $GOPATH/src/golang.org/x/oauth2;git pull;go install;cd -
-fi
-if [ ! -d $GOPATH/src/google.golang.org/grpc ]; then
-    mkdir -p $GOPATH/src/google.golang.org
-    cd $GOPATH/src/google.golang.org/;git clone  https://github.com/grpc/grpc-go.git grpc;cd -
-else
-    cd $GOPATH/src/google.golang.org/grpc/;git pull;go install;cd -
-fi
-
-if [ ! -d $GOPATH/src/google.golang.org/cloud ]; then
-    mkdir -p $GOPATH/src/google.golang.org
-    cd $GOPATH/src/google.golang.org/;git clone  https://github.com/GoogleCloudPlatform/gcloud-golang.git cloud;cd -
-else
-    cd $GOPATH/src/google.golang.org/cloud/;git pull;go install;cd -
-fi
-
-if [ ! -d $GOPATH/src/google.golang.org/api ]; then
-    mkdir -p $GOPATH/src/google.golang.org
-    cd $GOPATH/src/google.golang.org/;git clone  https://github.com/google/google-api-go-client.git api;cd -
-else
-    cd $GOPATH/src/google.golang.org/api/googleapi;git pull;go install;cd -
-fi
-
-
-
-
-
 cd $GOPATH/src/github.com/youtube/vitess;./bootstrap.sh;cd -
 # wget -c http://apache.opencas.org/zookeeper/zookeeper-3.4.6/zookeeper-3.4.6.tar.gz
 # tar -xf zookeeper-3.4.6.tar.gz

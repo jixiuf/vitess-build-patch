@@ -1,5 +1,5 @@
 diff --git a/bootstrap.sh b/bootstrap.sh
-index 789b631..53fd63c 100755
+index 789b631..2b9f46d 100755
 --- a/bootstrap.sh
 +++ b/bootstrap.sh
 @@ -63,8 +63,11 @@ if [ $SKIP_ROOT_INSTALLS == "True" ]; then
@@ -24,7 +24,58 @@ index 789b631..53fd63c 100755
    mkdir -p $grpc_dist
    ./travis/install_grpc.sh $grpc_dist || fail "gRPC build failed"
    touch $grpc_dist/.build_finished
-@@ -96,13 +99,6 @@ repos="github.com/golang/glog \
+@@ -89,6 +92,50 @@ fi
+ ln -nfs $VTTOP/third_party/go/launchpad.net $VTROOT/src
+ go install launchpad.net/gozk/zookeeper
+ 
++
++mkdir -p $GOPATH/src/golang.org/x
++if [ ! -d $GOPATH/src/golang.org/x/net ]; then
++    cd $GOPATH/src/golang.org/x;git clone  https://github.com/golang/net.git ;cd -
++else
++    cd $GOPATH/src/golang.org/x/net;git pull;cd -
++fi
++if [ ! -d $GOPATH/src/golang.org/x/crypto ]; then
++    cd $GOPATH/src/golang.org/x;git clone   https://github.com/golang/crypto.git;cd -
++else
++    cd $GOPATH/src/golang.org/x/crypto;git pull;cd -
++fi
++if [ ! -d $GOPATH/src/golang.org/x/tools ]; then
++    cd $GOPATH/src/golang.org/x;git clone  https://github.com/golang/tools.git;cd -
++else
++    cd $GOPATH/src/golang.org/x/tools;git pull;cd -
++fi
++go install golang.org/x/tools/cmd/goimports
++
++if [ ! -d $GOPATH/src/golang.org/x/oauth2 ]; then
++    cd $GOPATH/src/golang.org/x;git clone  https://github.com/golang/oauth2.git;go install;cd -
++else
++    cd $GOPATH/src/golang.org/x/oauth2;git pull;go install;cd -
++fi
++if [ ! -d $GOPATH/src/google.golang.org/grpc ]; then
++    mkdir -p $GOPATH/src/google.golang.org
++    cd $GOPATH/src/google.golang.org/;git clone  https://github.com/grpc/grpc-go.git grpc;cd -
++else
++    cd $GOPATH/src/google.golang.org/grpc/;git pull;go install;cd -
++fi
++
++if [ ! -d $GOPATH/src/google.golang.org/cloud ]; then
++    mkdir -p $GOPATH/src/google.golang.org
++    cd $GOPATH/src/google.golang.org/;git clone  https://github.com/GoogleCloudPlatform/gcloud-golang.git cloud;cd -
++else
++    cd $GOPATH/src/google.golang.org/cloud/;git pull;go install;cd -
++fi
++
++if [ ! -d $GOPATH/src/google.golang.org/api ]; then
++    mkdir -p $GOPATH/src/google.golang.org
++    cd $GOPATH/src/google.golang.org/;git clone  https://github.com/google/google-api-go-client.git api;cd -
++else
++    cd $GOPATH/src/google.golang.org/api/googleapi;git pull;go install;cd -
++fi
+ # Download third-party Go libraries.
+ # (We use one go get command (and therefore one variable) for all repositories because this saves us several seconds of execution time.)
+ repos="github.com/golang/glog \
+@@ -96,13 +143,6 @@ repos="github.com/golang/glog \
         github.com/golang/protobuf/proto \
         github.com/golang/protobuf/protoc-gen-go \
         github.com/tools/godep \
@@ -38,7 +89,7 @@ index 789b631..53fd63c 100755
  "
  
  # Packages for uploading code coverage to coveralls.io (used by Travis CI).
-@@ -111,7 +107,8 @@ repos+=" github.com/modocache/gover github.com/mattn/goveralls"
+@@ -111,7 +151,8 @@ repos+=" github.com/modocache/gover github.com/mattn/goveralls"
  # if Go is installed somewhere that requires root access.
  source tools/shell_functions.inc
  if goversion_min 1.4; then
