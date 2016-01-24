@@ -27,9 +27,21 @@ http://vitess.io/getting-started/local-instance.html
 
 ** vitess 下自带了一些Dockerfile
    用这些脚本可生成相应的docker 镜像
-   1. make docker_lite
+   1. make docker_bootstrap
+      这里生成了3个docker image
+      + vitess/bootstrap:common
+      + vitess/bootstrap:mysql56
+      + vitess/bootstrap:mariadb
+      分别为mysql 和mariadb 搭建开发环境而生成的镜像
+      make docker_base 等会依赖这些镜像
+   2. make docker_base
+       这个镜像 是基于mysql 的开发环境
+      拿到这个镜像就可以编译vitess 等
+       若非需要翻墙及网速原因，docker pull vitess/base 就可以从网下
+      下载这个境像，就具有了最基本的vitess 编译环境
+   3. make docker_lite
       会生成vitess 的二进制版本的docker 镜像 ，拿到这个镜像就可以去部署了
-   2. make etcd
+   4. make etcd
        生成etcd 的二进制版 docker 镜像
 
 
