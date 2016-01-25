@@ -2,7 +2,10 @@
   https://github.com/jixiuf/vitess-build-patch
 * 官方编译 vitess 的手册
 http://vitess.io/getting-started/local-instance.html
-
+为防止你翻不了墙，本库里放了价mht格式的文件 ，你可以下载到本地看
+https://github.com/jixiuf/vitess-build-patch/raw/master/doc/vitess-running-on-local-server-doc.mht
+* vitess 源码地址
+  https://github.com/youtube/vitess
 * files 目录
   此目录下是编译 vitess 及其依赖组件所需要的墙外文件
   | 墙外链接        | 本仓库files下链接 |                |
@@ -21,6 +24,7 @@ http://vitess.io/getting-started/local-instance.html
 
 ** 下载本仓库 执行make
    网速的原因 可能一次不成功，可以执行多次make
+   然后 到 vitess 目录下执行 ./bootstrip
 
 ** 在 vitess 代码会放到 ~/go/src/github.com/youtube/vitess/
    在此目录下执行 make build 不报错， 说明 vitess 开发环境搭建成功
