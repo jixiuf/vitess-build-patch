@@ -81,6 +81,7 @@ $VTROOT/bin/mysqlctl \
     $action
 
 echo "Starting vttablet for $alias..."
+echo "Access tablet $alias at http://$hostname:$port/debug/status"
 $VTROOT/bin/vttablet \
     -log_dir $VTDATAROOT/tmp \
     -tablet-path $alias \
@@ -103,8 +104,5 @@ $VTROOT/bin/vttablet \
     -topo_implementation etcd \
     -etcd_global_addrs $etcd_global_addrs \
     $dbconfig_flags \
-    > $VTDATAROOT/$tablet_dir/vttablet.out 2>&1 &
+    > $VTDATAROOT/$tablet_dir/vttablet.out 2>&1 
 
-echo "Access tablet $alias at http://$hostname:$port/debug/status"
-
-disown -a
