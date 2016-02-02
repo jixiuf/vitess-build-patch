@@ -1,0 +1,11 @@
+构建一个方便启动 vttablet 的镜像
+镜像内包含
+/vt/bin/vttablet-up.sh
+
+执行make 创建镜像
+此镜像在在vitess/lite:latest 的基础上构建
+(注意 vitess/lite:latest  为通过本仓库打过补丁后创建出的镜像)
+因为官网的vitess/lite:latest  不包含 mysqlctl 命令
+
+如果自用本镜像
+
