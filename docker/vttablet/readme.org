@@ -8,4 +8,8 @@
 因为官网的vitess/lite:latest  不包含 mysqlctl 命令
 
 如果自用本镜像
+#+BEGIN_SRC sh
+  sudo docker run  -p 15100:15100 -p 16100:16100 --env cell="test" --env keyspace='test_keyspace' --env port=15100 --env grpc_port=16100  --link=etcd-name:etcd-alias --name=vttablet-name-1 -d  vitess/vttablet:lite bash /vt/bin/vttablet-up.sh
+#+END_SRC
+这里--env 主要为 动态修改vttablet-up.sh 开头的几个变量 ,如果不设置则使用脚本开头设置的默认值
 
