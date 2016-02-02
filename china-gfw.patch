@@ -139,6 +139,19 @@ index 7dd0221..e2f460d 100755
  
 -docker build --no-cache -f docker/bootstrap/Dockerfile.$flavor -t vitess/bootstrap:$flavor .
 +docker build  -f docker/bootstrap/Dockerfile.$flavor -t vitess/bootstrap:$flavor .
+diff --git a/docker/lite/build.sh b/docker/lite/build.sh
+index d7a1ceb..00829ba 100755
+--- a/docker/lite/build.sh
++++ b/docker/lite/build.sh
+@@ -13,7 +13,7 @@ vttop=vt/src/github.com/youtube/vitess
+ mkdir -p $lite/vt/vtdataroot
+ 
+ mkdir -p $lite/vt/bin
+-(cd base/vt/bin; cp mysqlctld vtctld vtgate vttablet vtworker $lite/vt/bin/)
++(cd base/vt/bin; cp mysqlctld mysqlctl vtctld vtgate vttablet vtworker $lite/vt/bin/)
+ 
+ cp -R base/vt/dist lite/vt/
+ 
 diff --git a/travis/install_protobuf.sh b/travis/install_protobuf.sh
 index bc114de..7443766 100755
 --- a/travis/install_protobuf.sh
