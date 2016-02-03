@@ -26,7 +26,7 @@ sudo docker run --name=etcd-cell-test -d -p 3380:3380 -p 3379:3379 vitess/etcd:v
 如何停止镜像shutdown
 
 #+BEGIN_SRC sh
-  sudo docker run --rm --env cell="test" --env uid=100   /vt/bin/vttablet-down.sh
-  sudo docker run --rm --env cell="test" --env uid=101   /vt/bin/vttablet-down.sh
-  sudo docker run --rm --env cell="test" --env uid=102   /vt/bin/vttablet-down.sh
+sudo docker run --rm --env cell="test" --env uid=100  -u vitess vitess/vttablet:lite  /vt/bin/vttablet-down.sh
+sudo docker run --rm --env cell="test" --env uid=101  -u vitess vitess/vttablet:lite  /vt/bin/vttablet-down.sh
+sudo docker run --rm --env cell="test" --env uid=102 -u vitess vitess/vttablet:lite  /vt/bin/vttablet-down.sh
 #+END_SRC
