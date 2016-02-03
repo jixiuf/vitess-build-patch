@@ -9,15 +9,24 @@
 
 如果使用本镜像
 #+BEGIN_SRC sh
-    sudo docker run  -p 15100:15100 -p 16100:16100 -p 33100:33100 --env etcd_global_addrs="http://etcd-global:2379" --env cell="test" --env keyspace='test_keyspace' --env uid=100 --env port=15100 --env grpc_port=16100 --env mysql_port=33100 --link=etcd-global:etcd-global-alias --name=vttablet-name-1 -d -u vitess vitess/vttablet:lite /vt/bin/vttablet-up.sh
+    sudo docker run  -p 15100:15100 -p 16100:16100 -p 33100:33100 --env etcd_global_addrs="http://etcd-global:2379" --env cell="test" --env keyspace='test_keyspace' --env uid=100 --env port=15100 --env grpc_port=16100 --env mysql_port=33100 --link=etcd-global:etcd-global-alias --link=etcd-cell-test   --name=vttablet-name-1 -d -u vitess vitess/vttablet:lite /vt/bin/vttablet-up.sh
 
-    sudo docker run  -p 15101:15101 -p 16101:16101 -p 33101:33101 --env etcd_global_addrs="http://etcd-global:2379" --env cell="test" --env keyspace='test_keyspace' --env uid=101  --env port=15101 --env grpc_port=16101 --env mysql_port=33101  --link=etcd-global:etcd-global-alias --name=vttablet-name-2 -d -u vitess vitess/vttablet:lite /vt/bin/vttablet-up.sh
+    sudo docker run  -p 15101:15101 -p 16101:16101 -p 33101:33101 --env etcd_global_addrs="http://etcd-global:2379" --env cell="test" --env keyspace='test_keyspace' --env uid=101  --env port=15101 --env grpc_port=16101 --env mysql_port=33101  --link=etcd-global:etcd-global-alias --link=etcd-cell-test  --name=vttablet-name-2 -d -u vitess vitess/vttablet:lite /vt/bin/vttablet-up.sh
 
-    sudo docker run  -p 15102:15102 -p 16102:16102 -p 33102:33102 --env etcd_global_addrs="http://etcd-global:2379"  --env cell="test" --env keyspace='test_keyspace' --env uid=102  --env port=15102 --env grpc_port=16102 --env mysql_port=33102   --link=etcd-global:etcd-global-alias --name=vttablet-name-3 -d -u vitess vitess/vttablet:lite /vt/bin/vttablet-up.sh
+    sudo docker run  -p 15102:15102 -p 16102:16102 -p 33102:33102 --env etcd_global_addrs="http://etcd-global:2379"  --env cell="test" --env keyspace='test_keyspace' --env uid=102  --env port=15102 --env grpc_port=16102 --env mysql_port=33102   --link=etcd-global:etcd-global-alias  --link=etcd-cell-test  --name=vttablet-name-3 -d -u vitess vitess/vttablet:lite /vt/bin/vttablet-up.sh
 #+END_SRC
 假如etcd 以这种方式启动
 #+BEGIN_SRC sh
 sudo docker run --name=etcd-global -d -p 2380:2380 -p 2379:2379 vitess/etcd:v2.0.13-lite etcd  -listen-client-urls http://0.0.0.0:2379  -advertise-client-urls http://0.0.0.0:2379 -listen-peer-urls http://0.0.0.0:2380
+sudo docker run --name=etcd-cell-test -d -p 3380:3380 -p 3379:3379 vitess/etcd:v2.0.13-lite etcd  -listen-client-urls http://0.0.0.0:3379  -advertise-client-urls http://0.0.0.0:3379 -listen-peer-urls http://0.0.0.0:3380
 #+END_SRC
 这里--env 主要为 动态修改vttablet-up.sh 开头的几个变量 ,如果不设置则使用脚本开头设置的默认值
 
+
+如何停止镜像shutdown
+
+#+BEGIN_SRC sh
+  sudo docker run --rm --env cell="test" --env uid=100   /vt/bin/vttablet-down.sh
+  sudo docker run --rm --env cell="test" --env uid=101   /vt/bin/vttablet-down.sh
+  sudo docker run --rm --env cell="test" --env uid=102   /vt/bin/vttablet-down.sh
+#+END_SRC
