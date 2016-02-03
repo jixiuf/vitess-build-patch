@@ -17,7 +17,7 @@ tablet_type=${tablet_type:-'replica'}
 port=${port:-15100}
 grpc_port=${grpc_port:-16100}
 mysql_port=${mysql_port:-33100}
-etcd_global_addrs=${etcd_global_addrs:-'http://etcd-alias:2379'}
+etcd_global_addrs=${etcd_global_addrs:-'http://etcd-global:2379'}
 
 
 
@@ -104,6 +104,3 @@ $VTROOT/bin/vttablet \
     -etcd_global_addrs $etcd_global_addrs \
     $dbconfig_flags \
     > $VTDATAROOT/$tablet_dir/vttablet.out 2>&1
-
-# add this line keep docker running
-tail -f $VTDATAROOT/tmp/*  $VTDATAROOT/$tablet_dir/vttablet.out
