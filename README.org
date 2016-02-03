@@ -1,5 +1,8 @@
 * 本库的地址
   https://github.com/jixiuf/vitess-build-patch
+  博文介绍
+  http://jixiuf.github.io/tags/vitess/
+  http://jixiuf.github.io/blog/%E5%A2%99%E5%86%85%E6%90%AD-vitess-%E7%8E%AF%E5%A2%83/
 * 官方编译 vitess 的手册
 http://vitess.io/getting-started/local-instance.html
 为防止你翻不了墙，本库里放了价mht格式的文件 ，你可以下载到本地看
