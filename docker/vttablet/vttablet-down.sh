@@ -16,6 +16,7 @@ printf -v tablet_dir 'vt_%010d' $uid
 
 echo "Stopping vttablet for $alias..."
 pid=`cat $VTDATAROOT/$tablet_dir/vttablet.pid`
+echo "kill pid $pid of $VTDATAROOT/$tablet_dir/vttablet.pid"
 kill $pid
 
 echo "Stopping MySQL for tablet $alias..."
